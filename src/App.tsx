@@ -2,14 +2,24 @@
 // import { Toaster } from "@/components/ui/toaster";
 // import { Toaster as Sonner } from "@/components/ui/sonner";
 // import { TooltipProvider } from "@/components/ui/tooltip";
-// import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-// import { BrowserRouter, Routes, Route } from "react-router-dom";
+// import {
+//   QueryClient,
+//   QueryClientProvider,
+// } from "@tanstack/react-query";
+// import {
+//   BrowserRouter,
+//   Routes,
+//   Route,
+// } from "react-router-dom";
 
 // import Index from "./pages/Index";
 // import NotFound from "./pages/NotFound";
 // import Preloader from "./components/Preloader";
 
 // import ClickSpark from "@/components/ClickSpark";
+
+// import EventsPage from "./pages/EventsPage";
+
 
 // const queryClient = new QueryClient();
 
@@ -36,13 +46,20 @@
 //           <Routes>
 //             <Route path="/" element={<Index />} />
 
-//             {/* Future pages */}
-//             {/* <Route path="/events" element={<EventsPage />} /> */}
-//             {/* <Route path="/faculty" element={<FacultyPage />} /> */}
-//             {/* <Route path="/gallery" element={<GalleryPage />} /> */}
+// <Route path="/events" element={<EventsPage />} />
 
 //             <Route path="*" element={<NotFound />} />
 //           </Routes>
+
+//           <ClickSpark
+//             sparkColor="#7DA0CA"
+//             sparkSize={10}
+//             sparkRadius={18}
+//             sparkCount={8}
+//             duration={400}
+//             easing="ease-out"
+//             extraScale={1}
+//           />
 //         </BrowserRouter>
 //       </TooltipProvider>
 //     </QueryClientProvider>
@@ -52,15 +69,17 @@
 // export default App;
 
 
-
 import { useEffect, useState } from "react";
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
+
 import {
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
+
 import {
   BrowserRouter,
   Routes,
@@ -68,11 +87,11 @@ import {
 } from "react-router-dom";
 
 import Index from "./pages/Index";
+import EventsPage from "./pages/EventsPage";
 import NotFound from "./pages/NotFound";
+
 import Preloader from "./components/Preloader";
-
 import ClickSpark from "@/components/ClickSpark";
-
 
 const queryClient = new QueryClient();
 
@@ -94,17 +113,25 @@ const App = () => {
         <Sonner />
 
         <BrowserRouter>
+
+          {/* Preloader only when the app/document is loaded */}
           {loading && <Preloader />}
 
           <Routes>
+
+            {/* Home */}
             <Route path="/" element={<Index />} />
 
+            {/* Events */}
+            <Route path="/events" element={<EventsPage />} />
+
             {/* Future pages */}
-            {/* <Route path="/events" element={<EventsPage />} /> */}
             {/* <Route path="/faculty" element={<FacultyPage />} /> */}
             {/* <Route path="/gallery" element={<GalleryPage />} /> */}
 
+            {/* 404 */}
             <Route path="*" element={<NotFound />} />
+
           </Routes>
 
           <ClickSpark
@@ -116,6 +143,7 @@ const App = () => {
             easing="ease-out"
             extraScale={1}
           />
+
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>

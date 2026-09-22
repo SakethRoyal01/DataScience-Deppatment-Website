@@ -930,11 +930,11 @@ const Hero = () => {
 
   /* Entire scene */
 
-  const sceneY = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [0, -320]
-  );
+const sceneY = useTransform(
+  scrollYProgress,
+  [0, 1],
+  [60, -250]
+);
 
   const sceneScale = useTransform(
     scrollYProgress,
@@ -1186,14 +1186,14 @@ const Hero = () => {
           MAIN SCENE
       ===================================================== */}
 
-      <motion.div
-        style={{
-          y: sceneY,
-          scale: sceneScale,
-          opacity: sceneOpacity,
-        }}
-        className="relative z-10 min-h-screen"
-      >
+<motion.div
+  style={{
+    y: sceneY,
+    scale: sceneScale,
+    opacity: sceneOpacity,
+  }}
+  className="relative z-10 min-h-screen translate-y-[40px]"
+>
         {/* ===================================================
             TOP LEFT
         =================================================== */}

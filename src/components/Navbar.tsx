@@ -4,6 +4,8 @@ import { Menu, X } from "lucide-react";
 
 import clgLogo from "@/assets/clg-logo.png";
 
+import { Link } from "react-router-dom";
+
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -22,11 +24,12 @@ const Navbar = () => {
     };
   }, []);
 
-  const links = [
-    { name: "Home", href: "#home" },
-    { name: "Events", href: "#events" },
-    { name: "Contact", href: "#contact" },
-  ];
+const links = [
+  { name: "Home", href: "#home" },
+  { name: "Events", href: "/events" },
+  { name: "Contact", href: "#contact" },
+];
+
 
   const closeMenu = () => {
     setMobileOpen(false);
@@ -327,103 +330,122 @@ const Navbar = () => {
               ================================================== */}
 
               <nav
-                className="
-                  hidden
-                  items-center
-                  gap-7
-                  md:flex
-                  lg:gap-9
-                "
-              >
-                {links.map((link, index) => (
-                  <motion.a
-                    key={link.name}
-                    href={link.href}
-                    initial={{
-                      opacity: 0,
-                      y: -8,
-                    }}
-                    animate={{
-                      opacity: 1,
-                      y: 0,
-                    }}
-                    transition={{
-                      duration: 0.5,
-                      delay:
-                        0.15 + index * 0.07,
-                      ease: [
-                        0.22,
-                        1,
-                        0.36,
-                        1,
-                      ],
-                    }}
-                    className="
-                      group
-                      relative
-                      py-2
-                    "
-                  >
-                    <motion.span
-                      animate={{
-                        color: "#1B1717",
+  className="
+    hidden
+    items-center
+    gap-7
+    md:flex
+    lg:gap-9
+  "
+>
+  {links.map((link, index) => {
+    const navContent = (
+      <>
+        <motion.span
+          animate={{
+            color: "#1B1717",
+            fontSize: scrolled ? "10px" : "12px",
+            letterSpacing: scrolled ? "0.18em" : "0.23em",
+          }}
+          transition={{
+            duration: 0.4,
+          }}
+          className="
+            relative
+            block
+            font-semibold
+            uppercase
+            transition-all
+            duration-300
+            group-hover:-translate-y-[1px]
+            group-hover:text-[#630000]
+          "
+        >
+          {link.name}
+        </motion.span>
 
-                        fontSize: scrolled
-                          ? "10px"
-                          : "12px",
+        <motion.span
+          initial={{
+            scaleX: 0,
+          }}
+          whileHover={{
+            scaleX: 1,
+          }}
+          transition={{
+            duration: 0.4,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+          className="
+            absolute
+            bottom-0
+            left-0
+            h-px
+            w-full
+            origin-left
+            bg-[#810100]
+          "
+        />
+      </>
+    );
 
-                        letterSpacing: scrolled
-                          ? "0.18em"
-                          : "0.23em",
-                      }}
-                      transition={{
-                        duration: 0.4,
-                      }}
-                      className="
-                        relative
-                        block
-                        font-semibold
-                        uppercase
-                        transition-all
-                        duration-300
-                        group-hover:-translate-y-[1px]
-                        group-hover:text-[#630000]
-                      "
-                    >
-                      {link.name}
-                    </motion.span>
-
-                    {/* Hover underline */}
-
-                    <motion.span
-                      initial={{
-                        scaleX: 0,
-                      }}
-                      whileHover={{
-                        scaleX: 1,
-                      }}
-                      transition={{
-                        duration: 0.4,
-                        ease: [
-                          0.22,
-                          1,
-                          0.36,
-                          1,
-                        ],
-                      }}
-                      className="
-                        absolute
-                        bottom-0
-                        left-0
-                        h-px
-                        w-full
-                        origin-left
-                        bg-[#810100]
-                      "
-                    />
-                  </motion.a>
-                ))}
-              </nav>
+    return link.href.startsWith("/") ? (
+      <motion.div
+        key={link.name}
+        initial={{
+          opacity: 0,
+          y: -8,
+        }}
+        animate={{
+          opacity: 1,
+          y: 0,
+        }}
+        transition={{
+          duration: 0.5,
+          delay: 0.15 + index * 0.07,
+          ease: [0.22, 1, 0.36, 1],
+        }}
+        className="relative"
+      >
+        <Link
+          to={link.href}
+          className="
+            group
+            relative
+            block
+            py-2
+          "
+        >
+          {navContent}
+        </Link>
+      </motion.div>
+    ) : (
+      <motion.a
+        key={link.name}
+        href={link.href}
+        initial={{
+          opacity: 0,
+          y: -8,
+        }}
+        animate={{
+          opacity: 1,
+          y: 0,
+        }}
+        transition={{
+          duration: 0.5,
+          delay: 0.15 + index * 0.07,
+          ease: [0.22, 1, 0.36, 1],
+        }}
+        className="
+          group
+          relative
+          py-2
+        "
+      >
+        {navContent}
+      </motion.a>
+    );
+  })}
+</nav>
 
               {/* =================================================
                   MOBILE BUTTON
@@ -528,44 +550,66 @@ const Navbar = () => {
           "
         >
           <nav className="flex flex-col px-5 py-2">
-            {links.map((link, index) => (
-              <motion.a
-                key={link.name}
-                href={link.href}
-                onClick={closeMenu}
-                initial={{
-                  opacity: 0,
-                  x: -12,
-                }}
-                animate={{
-                  opacity: mobileOpen
-                    ? 1
-                    : 0,
-                  x: mobileOpen
-                    ? 0
-                    : -12,
-                }}
-                transition={{
-                  duration: 0.28,
-                  delay: mobileOpen
-                    ? index * 0.06
-                    : 0,
-                }}
-                className="
-                  border-b
-                  border-[#A9D8EF]
-                  py-4
-                  text-[11px]
-                  font-semibold
-                  uppercase
-                  tracking-[0.22em]
-                  text-[#1B1717]
-                  last:border-0
-                "
-              >
-                {link.name}
-              </motion.a>
-            ))}
+   {links.map((link, index) => {
+  const mobileClassName = `
+    border-b
+    border-[#A9D8EF]
+    py-4
+    text-[11px]
+    font-semibold
+    uppercase
+    tracking-[0.22em]
+    text-[#1B1717]
+    last:border-0
+  `;
+
+  return link.href.startsWith("/") ? (
+    <Link
+      key={link.name}
+      to={link.href}
+      onClick={closeMenu}
+      className={mobileClassName}
+    >
+      <motion.div
+        initial={{
+          opacity: 0,
+          x: -12,
+        }}
+        animate={{
+          opacity: mobileOpen ? 1 : 0,
+          x: mobileOpen ? 0 : -12,
+        }}
+        transition={{
+          duration: 0.28,
+          delay: mobileOpen ? index * 0.06 : 0,
+        }}
+      >
+        {link.name}
+      </motion.div>
+    </Link>
+  ) : (
+    <motion.a
+      key={link.name}
+      href={link.href}
+      onClick={closeMenu}
+      initial={{
+        opacity: 0,
+        x: -12,
+      }}
+      animate={{
+        opacity: mobileOpen ? 1 : 0,
+        x: mobileOpen ? 0 : -12,
+      }}
+      transition={{
+        duration: 0.28,
+        delay: mobileOpen ? index * 0.06 : 0,
+      }}
+      className={mobileClassName}
+    >
+      {link.name}
+    </motion.a>
+  );
+})}
           </nav>
         </motion.div>
       </motion.div>

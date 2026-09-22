@@ -37,7 +37,6 @@ const Index = () => {
         {/* Achievements will be enabled later after HOD approval */}
         {/* <Achievements /> */}
 
-        <Contact />
       </main>
 
       <Footer />
