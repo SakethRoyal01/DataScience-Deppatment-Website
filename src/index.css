@@ -138,21 +138,51 @@
   }
 }
 
-/* =========================
-   ANIMATIONS
-========================= */
+/* Staff infinite scrolling animation */
 
-@keyframes gradientMove {
-  0% { background-position: 0% }
-  50% { background-position: 100% }
-  100% { background-position: 0% }
+.staff-loop {
+  animation: staffLoop 90s linear infinite;
 }
 
-@keyframes floatSlow {
-  0%,100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
+@keyframes staffLoop {
+  from {
+    transform: translateX(0);
+  }
 
-.animate-float {
-  animation: floatSlow 6s ease-in-out infinite;
+  to {
+    transform: translateX(-50%);
+  }
 }
+/* =========================================================
+   STAFF INFINITE LOOP
+   ========================================================= */
+
+   .staff-loop {
+    animation: staffLoop 90s linear infinite;
+  }
+  
+  .staff-loop:hover {
+    animation-play-state: paused;
+  }
+  
+  @keyframes staffLoop {
+    from {
+      transform: translateX(0);
+    }
+  
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  
+  @media (max-width: 640px) {
+    .staff-loop {
+      animation-duration: 70s;
+    }
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .staff-loop {
+      animation: none;
+    }
+  }
